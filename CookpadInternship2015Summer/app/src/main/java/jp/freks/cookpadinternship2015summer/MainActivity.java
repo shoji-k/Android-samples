@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import jp.freks.cookpadinternship2015summer.model.Image;
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = ImageActivity.createIntent(this, 100);
         startActivity(intent);
+
+        Toast.makeText(this, "onCreate called", Toast.LENGTH_SHORT).show();
     }
 
 }
