@@ -1,7 +1,9 @@
 package jp.freks.cookpadinternship2015summer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import jp.freks.cookpadinternship2015summer.model.Image;
@@ -9,7 +11,6 @@ import jp.freks.cookpadinternship2015summer.model.Image;
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
-
     private ImageAdapter adapter;
 
     @Override
@@ -23,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.add(new Image(1, "title1", "http://www.xyz..."));
         adapter.add(new Image(2, "title2", "http://www.xyz..."));
         listView.setAdapter(adapter);
+
+        Intent intent = ImageActivity.createIntent(this, 100);
+        startActivity(intent);
     }
+
 }
 
