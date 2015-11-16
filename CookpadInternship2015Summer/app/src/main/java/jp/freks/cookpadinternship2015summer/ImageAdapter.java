@@ -1,12 +1,15 @@
 package jp.freks.cookpadinternship2015summer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import jp.freks.cookpadinternship2015summer.model.Image;
 
@@ -34,6 +37,12 @@ public class ImageAdapter extends ArrayAdapter<Image> {
         Image image = getItem(position);
         viewHolder.titleText.setText(image.getTitle());
         viewHolder.descriptionText.setText(image.getUrl());
+
+        Log.d("test", image.getUrl());
+        Picasso.with(getContext()).                // Picassoインスタンスを取得
+                load(image.getUrl()).              // 画像のURLをセットする
+                into(viewHolder.thumbnailImage);   // 読み込み先のViewインスタンスを指定
+
         return view;
     }
 

@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.image_list);
         adapter = new ImageAdapter(this);
-        adapter.add(new Image(0, "title0", "http://www.xyz..."));
-        adapter.add(new Image(1, "title1", "http://www.xyz..."));
-        adapter.add(new Image(2, "title2", "http://www.xyz..."));
+        adapter.add(new Image(0, "title0", "https://upload.wikimedia.org/wikipedia/commons/b/b3/Berlin-BaoBao1-Asio.jpg"));
+        adapter.add(new Image(1, "title1", "http://ecx.images-amazon.com/images/I/41CJaWPsC4L._SL160_.jpg"));
+        adapter.add(new Image(2, "title2", "https://upload.wikimedia.org/wikipedia/commons/b/b3/Berlin-BaoBao1-Asio.jpg"));
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
