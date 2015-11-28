@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         internalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                outputFile();
+                outputFileToInternalStorage();
             }
         });
 
@@ -35,10 +35,9 @@ public class MainActivity extends AppCompatActivity {
                 outputFileToExternalStorage();
             }
         });
-
     }
 
-    private void outputFile() {
+    private void outputFileToInternalStorage() {
         String filename = "myfile.txt";
         String string = "Hello world!";
         FileOutputStream outputStream;
@@ -59,24 +58,28 @@ public class MainActivity extends AppCompatActivity {
             show("can not write");
         } else {
             File directory = getStorageDirectory(MainActivity.this, "sample");
-            File file = new File(directory, "test.txt");
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(file, true);
-                fw.write("sample");
-                fw.close();
-                fw = null;
+            outputFile(directory);
+        }
+    }
 
-                show("create " + file.getAbsolutePath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+    private void outputFile(File directory) {
+        File file = new File(directory, "test.txt");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file, true);
+            fw.write("sample");
+            fw.close();
+            fw = null;
+
+            show("create " + file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -88,8 +91,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private File getStorageDirectory(Context context, String directory) {
-        // Get the directory for the app's private pictures directory.
         File file = new File(context.getExternalFilesDir(null), directory);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                show("can not mkdir");
+            }
+        }
+        return file;
+    }
+
+    private File getStoragePublicDirectory(Context context, String directory) {
+        File file = new File(Environment.getExternalStoragePublicDirectory(null), directory);
         if (!file.mkdirs()) {
             show("can not mkdir");
         }
