@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 outputFileToExternalStorage();
             }
         });
+
+        Button publicButton = (Button)findViewById(R.id.public_button);
+        publicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outputFileToPublicStorage();
+            }
+        });
     }
 
     private void outputFileToInternalStorage() {
@@ -58,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
             show("can not write");
         } else {
             File directory = getStorageDirectory(MainActivity.this, "sample");
+            outputFile(directory);
+        }
+    }
+
+    private void outputFileToPublicStorage() {
+        if (! isExternalStorageWritable()) {
+            show("can not write");
+        } else {
+
+            File directory = null;
+            directory = getStoragePublicDirectory("sample");
             outputFile(directory);
         }
     }
@@ -100,14 +119,17 @@ public class MainActivity extends AppCompatActivity {
         return file;
     }
 
-    private File getStoragePublicDirectory(Context context, String directory) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(null), directory);
-        if (!file.mkdirs()) {
-            show("can not mkdir");
+    private File getStoragePublicDirectory(String directory) {
+        File file = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS);
+//        File file = new File(publicDirectory, directory);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                show("can not make" + file.getAbsolutePath());
+            }
         }
         return file;
     }
-
 
     private void show(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
