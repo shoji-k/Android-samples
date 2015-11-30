@@ -11,3 +11,10 @@
 ## OopCalculatorSample
 
 [サンプルアプリでおぼえる実践的Android入門 (1/6)：CodeZine（コードジン）](http://codezine.jp/article/detail/5957)
+
+## SaveFileSample
+
+[ファイルを保存する | Android Developers](http://developer.android.com/intl/ja/training/basics/data-storage/files.html)
+
+- make files visible on pc connected by usb
+- todo: Android Marshmallow API (target SDK version 23)
