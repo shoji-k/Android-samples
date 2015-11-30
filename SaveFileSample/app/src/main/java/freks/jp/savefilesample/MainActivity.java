@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             File directory = null;
-            directory = getStoragePublicDirectory("sample");
+            directory = getStoragePublicDirectory();
             outputFile(directory);
         }
     }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         return file;
     }
 
-    private File getStoragePublicDirectory(String directory) {
+    private File getStoragePublicDirectory() {
         File file = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS);
 
