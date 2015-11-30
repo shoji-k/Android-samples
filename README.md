@@ -18,3 +18,9 @@
 
 - make files visible on pc connected by usb
 - todo: Android Marshmallow API (target SDK version 23)
+
+## CameraSample
+
+[Taking Photos Simply | Android Developers](http://developer.android.com/intl/ja/training/camera/photobasics.html)
+
+- todo: fails after camera button's taking a shot
