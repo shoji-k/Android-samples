@@ -1,6 +1,7 @@
 package freks.jp.savefilesample;
 
 import android.content.Context;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(directory, "test.txt");
         FileWriter fw = null;
         try {
+            make_files_in_directory_visible_on_pc(file);
+
             fw = new FileWriter(file, true);
             fw.write("sample");
             fw.close();
@@ -122,13 +125,18 @@ public class MainActivity extends AppCompatActivity {
     private File getStoragePublicDirectory(String directory) {
         File file = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS);
-//        File file = new File(publicDirectory, directory);
+
         if (!file.exists()) {
             if (!file.mkdirs()) {
                 show("can not make" + file.getAbsolutePath());
             }
         }
         return file;
+    }
+
+    void make_files_in_directory_visible_on_pc(File file)
+    {
+        MediaScannerConnection.scanFile(this, new String[]{file.getAbsolutePath()}, null, null);
     }
 
     private void show(String message) {
