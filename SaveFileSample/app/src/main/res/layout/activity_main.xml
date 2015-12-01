@@ -36,4 +36,13 @@
         android:layout_alignStart="@+id/internal_button"
         android:layout_marginTop="44dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sjis"
+        android:id="@+id/encode_button"
+        android:layout_below="@+id/public_button"
+        android:layout_alignEnd="@+id/public_button"
+        android:layout_marginTop="56dp" />
+
 </RelativeLayout>

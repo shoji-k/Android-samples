@@ -9,10 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 outputFileToPublicStorage();
+            }
+        });
+
+        Button encodeButton = (Button)findViewById(R.id.encode_button);
+        encodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outputEncodedFile();
             }
         });
     }
@@ -75,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
         if (! isExternalStorageWritable()) {
             show("can not write");
         } else {
-
-            File directory = null;
+            File directory;
             directory = getStoragePublicDirectory();
             outputFile(directory);
         }
@@ -100,6 +112,36 @@ public class MainActivity extends AppCompatActivity {
             if (fw != null) {
                 try {
                     fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void outputEncodedFile() {
+        File directory = getStorageDirectory(MainActivity.this, "sample");
+        File file = new File(directory, "encode-sample.txt");
+        make_files_in_directory_visible_on_pc(file);
+
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(file, false), "SJIS")
+            );
+            out.append("sample");
+            out.append(",");
+            out.append("あああ");
+            out.close();
+            out = null;
+
+            show("create " + file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (out != null) {
+                try {
+                    out.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
